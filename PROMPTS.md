@@ -79,3 +79,50 @@ Updated metadata (layout.tsx) to reflect the new profile page
 > What would you do differently next time?
 
 I have used ChatGPT before and it wasn't like this. I like how it edits my files in the editor, and when it finishes it gives me a list of what it did and explains it pretty well. I also like that I have the option to keep or undo something because this gives me a lot of time to review what was changed or not changed. Something I would do differently next time is to add more information to the prompt.
+
+
+## Activity 2: Building the Dashboard Shell
+
+### Prompt 1
+
+**What I asked:**
+
+> Using the shadcn sidebar components that are now in my src/components/ui/ folder, create a professional, collapsible dashboard layout. It should include:
+
+1. A sidebar (src/components/app-sidebar.tsx) with navigation links for:
+   - Overview (use the Home icon from lucide-react)
+   - Projects (use the FolderOpen icon)
+   - Settings (use the Settings icon)
+
+2. A top navigation area with breadcrumbs showing the current page.
+
+3. A main content area that wraps the existing page content.
+
+4. Update src/app/layout.tsx to use the new SidebarProvider and sidebar layout.
+
+Important: Preserve the Developer Profile content from Activity 1 in
+src/app/page.tsx — it should appear in the main content area of the new layout.
+Keep the dark mode toggle working.
+
+
+**What happened:**
+
+ It created app-sidebar.tsx and wired it into layout.tsx.The new layout used the shadcn sidebar provider that added a collapsible navigation rail with Overview, Projects, and Settings. It also showed route-aware breadcrumbs plus the dark mode toggle in the top bar. It kept the developer profile content in page.tsx inside the new main area.
+
+### Prompt 2
+
+**What I asked:**
+
+> The sidebar is not responsive on mobile. It should collapse into a sheet (slide-out panel) that opens when clicking a trigger button. The shadcn Sidebar component supports this with the "offcanvas" variant or by using SidebarTrigger. Please fix the mobile behavior.
+
+**What happened:**
+
+It updated the mobile behavior to work as a slide-out sheet. What it changed were sidebar collapse mode to offcanvas in app-sidebar.tsx so it aligns with shadcn's mobile sheet pattern. It added a mobile state handling  with useSidebar for on route changes to close automatically and kept the SidebarTrigger at the top so it can still be clickable in mobile layout.
+
+### Reflection
+
+> Did the Agent accidentally delete or overwrite any of your Activity 1 code? 
+   no
+> What did you learn about giving the Agent context about existing code you want to preserve?
+   For example layout.tsx, it got upgraded with many things when the agent implemented the dashboard. It also added destination pages for the nav items in page.tsx.
+
