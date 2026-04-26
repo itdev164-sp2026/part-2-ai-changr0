@@ -126,3 +126,59 @@ It updated the mobile behavior to work as a slide-out sheet. What it changed wer
 > What did you learn about giving the Agent context about existing code you want to preserve?
    For example layout.tsx, it got upgraded with many things when the agent implemented the dashboard. It also added destination pages for the nav items in page.tsx.
 
+## Activity 3: Server-Side Data with Supabase
+
+### Prompt 1
+
+**What I asked:**
+
+Using the Supabase client at src/lib/supabase.ts, create a new Server Component
+at src/app/projects/page.tsx that:
+
+1. Fetches all records from the "projects" table in Supabase
+2. Displays them in a professional layout using shadcn/ui Card components
+   (run `npx shadcn@latest add card` if needed)
+3. Each card should show the project title, description, and a status badge
+4. The status badge should be color-coded:
+   - "active" = green
+   - "completed" = blue
+   - "archived" = gray
+
+Use @workspace context to match the styling of our existing Dashboard.
+This must be a React Server Component (async function, no "use client").
+Do NOT use useEffect or useState for data fetching.
+
+**What happened:**
+
+> (Did the Agent create a Server Component or a Client Component?
+> Did it use async/await or useEffect? Did you have to correct it?)
+   The agent implement an async Server Component. It replaced the static projects page with an async server component in page.tsx and it made changes in card.tsx by adding shadcn Card UI components. the new page now fetches all rows from the projects table using the supabase client in supabase.ts. Each project now has a professional card layout that shows the title, description and status.
+      status:
+      - active -> green
+      - completed -> blue
+      - archived -> gray
+   
+
+### Prompt 2
+
+**What I asked:**
+
+The breadcrumb in src/app/layout.tsx always shows "Overview" because the page
+name is hardcoded. Extract the breadcrumb into its own client component at
+src/components/breadcrumb-nav.tsx that uses usePathname() from next/navigation
+to display the correct page name. Map "/" to "Overview", "/projects" to
+"Projects", and "/settings" to "Settings". Keep "ITDEV-164" as the first
+breadcrumb segment. Then update layout.tsx to use the new component.
+
+**What happened:**
+
+> (Describe the result and what you learned from the exchange)
+It re-applied the breadcrumb extraction and put the new client component in breadcrumb-nav.tsx using usePathname(). It updated layout.tsx to render the new components and adjusted app-sidebar.tsx making the topbar accepts the breadcrumb as a prop. There was a warning in layout.tsx for global.css but is unrelated to the breadcrumbs.
+
+### Reflection
+
+> How does fetching data on the server feel different from the useEffect pattern you used in Web Programming 1? 
+> What are the advantages you noticed? 
+> Did anything surprise you about how simple server-side data fetching is in the App Router?
+
+It is very different from REST api but the coding is less and the async function is very nice compared with the client-side to fetch for data.

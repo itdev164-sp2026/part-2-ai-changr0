@@ -4,6 +4,7 @@ import { AppSidebar, DashboardTopbar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { BreadcrumbNav } from "../components/breadcrumb-nav";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -42,7 +43,7 @@ export default function RootLayout({
             <SidebarProvider defaultOpen>
               <AppSidebar />
               <SidebarInset>
-                <DashboardTopbar />
+                <DashboardTopbar breadcrumb={<BreadcrumbNav />} />
                 <div className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
                   <div className="mx-auto w-full max-w-6xl">{children}</div>
                 </div>
