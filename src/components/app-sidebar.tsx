@@ -4,16 +4,9 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, FolderOpen, Home, Settings } from "lucide-react";
+import type { ReactNode } from "react";
 
 import { ModeToggle } from "@/components/mode-toggle";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import {
   Sidebar,
   SidebarContent,
@@ -48,18 +41,8 @@ const navigationItems = [
   },
 ] as const;
 
-const pageTitles: Record<string, string> = {
-  "/": "Overview",
-  "/projects": "Projects",
-  "/settings": "Settings",
-};
-
 function normalizePath(pathname: string) {
   return pathname !== "/" ? pathname.replace(/\/$/, "") : pathname;
-}
-
-function getPageTitle(pathname: string) {
-  return pageTitles[normalizePath(pathname)] ?? "Overview";
 }
 
 export function AppSidebar() {
@@ -134,27 +117,12 @@ export function AppSidebar() {
   );
 }
 
-export function DashboardTopbar() {
-  const pathname = usePathname();
-  const currentPage = getPageTitle(pathname);
-
+export function DashboardTopbar({ breadcrumb }: { breadcrumb: ReactNode }) {
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:px-6 lg:px-8">
       <SidebarTrigger className="-ml-1 z-30" />
       <div className="hidden h-4 w-px bg-border sm:block" />
-      <Breadcrumb className="min-w-0">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/">ITDEV-164</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>{currentPage}</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <div className="min-w-0">{breadcrumb}</div>
       <div className="ml-auto">
         <ModeToggle />
       </div>
