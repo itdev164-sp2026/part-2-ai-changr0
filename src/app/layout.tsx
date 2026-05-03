@@ -3,6 +3,7 @@ import { Inter, Geist } from "next/font/google";
 import { AppSidebar, DashboardTopbar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { BreadcrumbNav } from "../components/breadcrumb-nav";
 import "./globals.css";
@@ -51,6 +52,7 @@ export default function RootLayout({
             </SidebarProvider>
           </TooltipProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

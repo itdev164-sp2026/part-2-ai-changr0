@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
@@ -47,15 +50,22 @@ export default async function ProjectsPage() {
 
   return (
     <div className="space-y-8">
-      <section className="space-y-3">
-        <p className="text-sm font-medium uppercase tracking-[0.24em] text-muted-foreground">
-          Projects
-        </p>
-        <h1 className="text-4xl font-bold tracking-tight">Project Portfolio</h1>
-        <p className="max-w-2xl leading-relaxed text-muted-foreground">
-          Live project data fetched directly from Supabase and presented in a
-          clean dashboard layout.
-        </p>
+      <section className="flex items-start justify-between gap-8">
+        <div className="space-y-3">
+          <p className="text-sm font-medium uppercase tracking-[0.24em] text-muted-foreground">
+            Projects
+          </p>
+          <h1 className="text-4xl font-bold tracking-tight">
+            Project Portfolio
+          </h1>
+          <p className="max-w-2xl leading-relaxed text-muted-foreground">
+            Live project data fetched directly from Supabase and presented in a
+            clean dashboard layout.
+          </p>
+        </div>
+        <Link href="/projects/new">
+          <Button variant="default">New Project</Button>
+        </Link>
       </section>
 
       {error ? (
