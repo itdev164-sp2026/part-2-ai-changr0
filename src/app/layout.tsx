@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { BreadcrumbNav } from "../components/breadcrumb-nav";
+import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -22,11 +23,16 @@ export const metadata: Metadata = {
     "Web development student proficient in React, GraphQL, GitHub, and Tailwind CSS",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <html
       lang="en"
@@ -42,7 +48,7 @@ export default function RootLayout({
         >
           <TooltipProvider delayDuration={0}>
             <SidebarProvider defaultOpen>
-              <AppSidebar />
+              <AppSidebar user={user} />
               <SidebarInset>
                 <DashboardTopbar breadcrumb={<BreadcrumbNav />} />
                 <div className="flex-1 px-4 py-6 sm:px-6 lg:px-8">

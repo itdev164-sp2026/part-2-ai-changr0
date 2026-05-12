@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, FolderOpen, Home, Settings } from "lucide-react";
+import { BookOpen, FolderOpen, Home, LogOut, Settings } from "lucide-react";
 import type { ReactNode } from "react";
+import type { User } from "@supabase/supabase-js";
 
 import { ModeToggle } from "@/components/mode-toggle";
+import { signOut } from "@/app/auth/actions";
 import {
   Sidebar,
   SidebarContent,
@@ -45,7 +47,7 @@ function normalizePath(pathname: string) {
   return pathname !== "/" ? pathname.replace(/\/$/, "") : pathname;
 }
 
-export function AppSidebar() {
+export function AppSidebar({ user }: { user: User | null }) {
   const pathname = usePathname();
   const normalizedPath = normalizePath(pathname);
   const { isMobile, setOpenMobile } = useSidebar();
@@ -100,7 +102,7 @@ export function AppSidebar() {
 
       <SidebarSeparator />
 
-      <div className="p-4">
+      <div className="space-y-4 p-4">
         <div className="rounded-xl border border-sidebar-border/70 bg-sidebar-accent/40 p-3">
           <p className="text-sm font-medium">Theme</p>
           <p className="mt-1 text-xs text-sidebar-foreground/70">
@@ -110,6 +112,22 @@ export function AppSidebar() {
             <ModeToggle />
           </div>
         </div>
+
+        {user && (
+          <div className="rounded-xl border border-sidebar-border/70 bg-sidebar-accent/40 p-3">
+            <p className="text-sm font-medium truncate">{user.email}</p>
+            <p className="mt-1 text-xs text-sidebar-foreground/70">
+              Signed in as
+            </p>
+            <button
+              onClick={() => signOut()}
+              className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-sidebar-primary px-3 py-2 text-sm font-medium text-sidebar-primary-foreground hover:bg-sidebar-primary/90 transition-colors"
+            >
+              <LogOut className="size-4" />
+              Sign Out
+            </button>
+          </div>
+        )}
       </div>
 
       <SidebarRail />

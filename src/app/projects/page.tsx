@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 
 type ProjectStatus = "active" | "completed" | "archived";
 
@@ -41,6 +41,8 @@ function getStatusBadgeClasses(status: string) {
 }
 
 export default async function ProjectsPage() {
+  const supabase = await createClient();
+
   const { data: projects, error } = await supabase
     .from("projects")
     .select("id, title, description, status")

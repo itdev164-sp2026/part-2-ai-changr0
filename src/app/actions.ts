@@ -1,7 +1,7 @@
 "use server";
 
 import { projectSchema, type Project } from "@/lib/schemas";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 
 export async function createProject(
   data: unknown,
@@ -17,6 +17,8 @@ export async function createProject(
   }
 
   const validatedData: Project = validationResult.data;
+
+  const supabase = await createClient();
 
   try {
     const { error } = await supabase.from("projects").insert([
