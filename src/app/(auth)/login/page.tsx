@@ -89,7 +89,7 @@ export default function LoginPage() {
               <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900 dark:border-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
                 <p className="font-medium">Confirmation email sent</p>
                 <p className="mt-1 text-xs">
-                  We've sent a confirmation link to{" "}
+                  We&apos;ve sent a confirmation link to{" "}
                   <strong>{formData.email}</strong>. Please click it to verify
                   your email address.
                 </p>
