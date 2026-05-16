@@ -6,7 +6,7 @@
 
 **What I asked:**
 
-> Look at my project structure and tell me:
+Look at my project structure and tell me:
 
 1. What framework and version am I using?
 2. What styling solution is configured?
@@ -15,7 +15,7 @@
 
 **What happened:**
 
-> It analyzed my prompt and gave me the following information:
+It analyzed my prompt and gave me the following information:
 
 Analysis
 
@@ -80,7 +80,6 @@ Updated metadata (layout.tsx) to reflect the new profile page
 
 I have used ChatGPT before and it wasn't like this. I like how it edits my files in the editor, and when it finishes it gives me a list of what it did and explains it pretty well. I also like that I have the option to keep or undo something because this gives me a lot of time to review what was changed or not changed. Something I would do differently next time is to add more information to the prompt.
 
-
 ## Activity 2: Building the Dashboard Shell
 
 ### Prompt 1
@@ -104,10 +103,9 @@ Important: Preserve the Developer Profile content from Activity 1 in
 src/app/page.tsx — it should appear in the main content area of the new layout.
 Keep the dark mode toggle working.
 
-
 **What happened:**
 
- It created app-sidebar.tsx and wired it into layout.tsx.The new layout used the shadcn sidebar provider that added a collapsible navigation rail with Overview, Projects, and Settings. It also showed route-aware breadcrumbs plus the dark mode toggle in the top bar. It kept the developer profile content in page.tsx inside the new main area.
+It created app-sidebar.tsx and wired it into layout.tsx.The new layout used the shadcn sidebar provider that added a collapsible navigation rail with Overview, Projects, and Settings. It also showed route-aware breadcrumbs plus the dark mode toggle in the top bar. It kept the developer profile content in page.tsx inside the new main area.
 
 ### Prompt 2
 
@@ -117,14 +115,14 @@ Keep the dark mode toggle working.
 
 **What happened:**
 
-It updated the mobile behavior to work as a slide-out sheet. What it changed were sidebar collapse mode to offcanvas in app-sidebar.tsx so it aligns with shadcn's mobile sheet pattern. It added a mobile state handling  with useSidebar for on route changes to close automatically and kept the SidebarTrigger at the top so it can still be clickable in mobile layout.
+It updated the mobile behavior to work as a slide-out sheet. What it changed were sidebar collapse mode to offcanvas in app-sidebar.tsx so it aligns with shadcn's mobile sheet pattern. It added a mobile state handling with useSidebar for on route changes to close automatically and kept the SidebarTrigger at the top so it can still be clickable in mobile layout.
 
 ### Reflection
 
-> Did the Agent accidentally delete or overwrite any of your Activity 1 code? 
-   no
+> Did the Agent accidentally delete or overwrite any of your Activity 1 code?
+> no
 > What did you learn about giving the Agent context about existing code you want to preserve?
-   For example layout.tsx, it got upgraded with many things when the agent implemented the dashboard. It also added destination pages for the nav items in page.tsx.
+> For example layout.tsx, it got upgraded with many things when the agent implemented the dashboard. It also added destination pages for the nav items in page.tsx.
 
 ## Activity 3: Server-Side Data with Supabase
 
@@ -152,12 +150,12 @@ Do NOT use useEffect or useState for data fetching.
 
 > (Did the Agent create a Server Component or a Client Component?
 > Did it use async/await or useEffect? Did you have to correct it?)
-   The agent implement an async Server Component. It replaced the static projects page with an async server component in page.tsx and it made changes in card.tsx by adding shadcn Card UI components. the new page now fetches all rows from the projects table using the supabase client in supabase.ts. Each project now has a professional card layout that shows the title, description and status.
+> The agent implement an async Server Component. It replaced the static projects page with an async server component in page.tsx and it made changes in card.tsx by adding shadcn Card UI components. the new page now fetches all rows from the projects table using the supabase client in supabase.ts. Each project now has a professional card layout that shows the title, description and status.
+
       status:
       - active -> green
       - completed -> blue
       - archived -> gray
-   
 
 ### Prompt 2
 
@@ -173,16 +171,15 @@ breadcrumb segment. Then update layout.tsx to use the new component.
 **What happened:**
 
 > (Describe the result and what you learned from the exchange)
-It re-applied the breadcrumb extraction and put the new client component in breadcrumb-nav.tsx using usePathname(). It updated layout.tsx to render the new components and adjusted app-sidebar.tsx making the topbar accepts the breadcrumb as a prop. There was a warning in layout.tsx for global.css but is unrelated to the breadcrumbs.
+> It re-applied the breadcrumb extraction and put the new client component in breadcrumb-nav.tsx using usePathname(). It updated layout.tsx to render the new components and adjusted app-sidebar.tsx making the topbar accepts the breadcrumb as a prop. There was a warning in layout.tsx for global.css but is unrelated to the breadcrumbs.
 
 ### Reflection
 
-> How does fetching data on the server feel different from the useEffect pattern you used in Web Programming 1? 
-> What are the advantages you noticed? 
+> How does fetching data on the server feel different from the useEffect pattern you used in Web Programming 1?
+> What are the advantages you noticed?
 > Did anything surprise you about how simple server-side data fetching is in the App Router?
 
 It is very different from REST api but the coding is less and the async function is very nice compared with the client-side to fetch for data.
-
 
 ## Activity 4: AI-Driven Forms & Validation
 
@@ -203,7 +200,7 @@ Export the schema and also export the inferred TypeScript type using z.infer.
 
 **What happened:**
 
-The agent created schema correctly with with validation rules for: 
+The agent created schema correctly with with validation rules for:
 title (min 3 chars)
 description (min 10 chars)
 status (enum with "active", "completed", "archived")
@@ -240,7 +237,7 @@ Use @workspace to match the existing project styling.
 
 **What happened:**
 
-In project-form.tsx it has "use client" and in actions.tsx it has "use server". In page.tsx it added Link and Button imports and combined header section with "New Project" button. 
+In project-form.tsx it has "use client" and in actions.tsx it has "use server". In page.tsx it added Link and Button imports and combined header section with "New Project" button.
 
 ### Prompt 3 (if applicable)
 
@@ -255,7 +252,6 @@ It found that the toaster component was missing from the root layout and added i
 ### Reflection
 
 I like that with Zod, you define the "Shape of Truth" first then components become a visual representation of that schema. I like how it act as a "gatekeeper" that ensures all required keys to work. Previous course I would be using if/else statements or switch statements, but with Zod it automatically generate the validation function.
-
 
 ## Activity 5: Securing the App with Supabase Auth
 
@@ -308,8 +304,71 @@ It created the server-side supabase clients server.ts and middleware.ts. Then fo
 When I sign out of the account I don't get taken back to the sign in page.
 
 **What happened:**
-After signing out, the page is still stuck on Projects Page instead of going back to the sign in page. The agent looked at the signOut() function actions.ts and found that redirect() is inside the try-catch block in and moved it out. 
+After signing out, the page is still stuck on Projects Page instead of going back to the sign in page. The agent looked at the signOut() function actions.ts and found that redirect() is inside the try-catch block in and moved it out.
 
 ### Reflection
 
-The agent handled middleware.ts like a route-level auth gate. It created a supabase middleware client so every request can refresh before any page renders. How it compares to checking login status is that it is better for route protection. 
+The agent handled middleware.ts like a route-level auth gate. It created a supabase middleware client so every request can refresh before any page renders. How it compares to checking login status is that it is better for route protection.
+
+## Activity 6: Deployment, Webhooks, & AI-Testing
+
+### Prompt 1
+
+**What I asked:**
+
+I have a Next.js app with Supabase Auth. Using @workspace context to
+understand the app structure, write an End-to-End (E2E) test file at
+tests/auth.spec.ts using Playwright.
+
+The tests should verify:
+
+1. LOGIN PAGE VISIBLE: Navigate to /login and confirm the login form
+   is visible (check for email input, password input, and submit button).
+
+2. REDIRECT AFTER LOGIN: After a successful login with valid credentials,
+   the user is redirected to the dashboard or projects page.
+
+3. SIDEBAR NAVIGATION: After login, verify that the sidebar navigation
+   links are visible: "Overview", "Projects", and "Settings".
+
+Requirements:
+
+- Use role-based locators (getByRole, getByLabel, getByText) instead of
+  CSS selectors or test IDs. This makes tests more accessible and resilient
+  to UI changes.
+- Add clear test descriptions that explain what each test verifies.
+- Handle the async nature of navigation and page loads with proper
+  Playwright waiting strategies.
+- Read test credentials from process.env.TEST_USER_EMAIL and
+  process.env.TEST_USER_PASSWORD. Do not hardcode credentials. If those
+  variables are not set, the credentialed tests should skip with a clear
+  message rather than fail.
+
+**What happened:**
+The agent used page.getByRole("button", { name: /^sign in$/i }).click() for role-based locators. It made sure that the login credentials read from TEST_USER_EMAIL and TEST_USER_PASSWORD and successful sign ins redirects to the projects page. On the first test run it did not pass because of the navigation links.
+
+### Prompt 2
+
+**What I asked:**
+
+This Playwright test is failing with the following error:
+tests\auth.spec.ts:65:5 › Sidebar navigation links are visible after login ─────────────────────
+
+Look at the actual component code in @workspace and fix the test
+to match the real UI. Use role-based locators.
+
+**What happened:**
+The agent found out that the sidebar could be collapsed and the breadcrumb showed a duplicate projects link. After that it updated auth.spec.ts to scope link assertions to the sidebar menu ensuring role-based locators target the right elements.
+
+### Reflection
+
+Having the AI write and run tests changes gave me a little more confidence because there are errors that it found that I would have missed like the sidebar navigation links. To compare this to manually testing in the browser, it would have taken me longer while it ran tests quickly and consistently.
+
+### Course Reflection
+
+> Look back at your complete PROMPTS.md from Activity 1 to Activity 6.
+> How has your prompting strategy evolved? What do you do differently
+> now compared to your first prompt in Activity 1? What is the most
+> important thing you learned about working with AI coding tools?
+
+Looking back at the prompts from Activity 1, I think the strategy is still similar by giving it a list of what I want it to do. The prompts are still very specific but there are times when it writes a function differently or didn't add or forget something in the function. I haven't really right my prompts differently from my first prompts in activity 1, because after the initial prompt on each activity I would give it a second prompt like a sentence to fix or change something that didn't work with me. Lastly, the most important thing I learned from working with AI is that when I am stuck I can use it to help me find the errors, but it will make me more dependant on it when it writes all my code.
